@@ -1,0 +1,28 @@
+policies:
+  - name: offhourperiodic
+    resource: ec2
+    mode:
+      type: periodic
+      schedule: "cron(1 22,23 ? * MON-FRI *)"
+      role: arn:aws:iam::602062455022:role/ec2-fullaccess
+    filters:
+      - type: offhour
+        default_tz: est
+        offhour: 18
+        tag: longAfterHours
+    actions:
+      - stop
+
+  - name: onhourperiodic
+    resource: ec2
+    mode:
+      type: periodic
+      schedule: "cron(1 11,12 ? * MON-FRI *)"
+      role: arn:aws:iam::602062455022:role/ec2-fullaccess
+    filters:
+      - type: onhour
+        default_tz: est
+        onhour: 7
+        tag: longAfterHours
+    actions:
+      - start
