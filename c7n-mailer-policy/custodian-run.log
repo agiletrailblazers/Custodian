@@ -1,0 +1,2 @@
+2017-07-31 20:20:53,897 - custodian.policy - INFO - Provisioning policy lambda c7n-mailer-policy
+2017-07-31 20:20:53,995 - custodian.lambda - INFO - Publishing custodian policy lambda function custodian-c7n-mailer-policy
