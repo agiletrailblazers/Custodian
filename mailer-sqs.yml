@@ -1,0 +1,3 @@
+queue_url: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
+role: arn:aws:iam::602062455022:role/ec2-fullaccess
+from_address: ikhan@agiletrailblazers.com

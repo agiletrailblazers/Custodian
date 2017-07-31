@@ -1,0 +1,18 @@
+policies:
+- name: c7n-mailer-test
+  resource: ec2
+  filters:
+  - "tag:longAfterHours": absent
+  actions:
+  - type: notify
+    template: default.html
+    priority_header: 2
+    subject: "Tag policy violation"
+    violation_desc: "EC2(s) do not have mandatory tags"
+    action_desc: "send email"
+    to:
+      - ikhan@agiletrailblazers.com
+    transport:
+      type: sqs
+      queue: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
+      region: us-east-1
