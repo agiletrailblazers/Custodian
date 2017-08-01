@@ -1,6 +1,10 @@
 policies:
-- name: c7n-mailer-test
+- name: c7n-mailer-policy
   resource: ec2
+  mode:
+    type: periodic
+    schedule: "cron(1 10 ? * MON-FRI *)"
+    role: arn:aws:iam::602062455022:role/ec2-fullaccess
   filters:
   - or:
     - "tag:longAfterHours": absent
@@ -15,7 +19,10 @@ policies:
     violation_desc: "The following EC2(s) do not have mandatory tags."
     action_desc: "Action performed: An Email is sent."
     to:
+      - snegi@agiletrailblazers.com
       - ikhan@agiletrailblazers.com
+      - skumar@agiletrailblazers.com
+      - resource-owner
     transport:
       type: sqs
       queue: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
