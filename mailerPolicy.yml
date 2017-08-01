@@ -8,6 +8,8 @@ policies:
   filters:
   - or:
     - "tag:longAfterHours": absent
+    - "tag:Owner": absent
+    - "tag:OwnerEmail": absent
     - and:
       - "tag:longAfterHours": not-equal "yes"
       - "tag:longAfterHours": not-equal "no"
@@ -16,7 +18,7 @@ policies:
     template: default.html
     priority_header: 2
     subject: "Tag policy violation."
-    violation_desc: "The following EC2(s) do not have mandatory tags."
+    violation_desc: "The following EC2(s) do not have mandatory tags. Mandatory tags are longAfterHours, Owner and OwnerEmail."
     action_desc: "Action performed: An Email is sent."
     to:
       - snegi@agiletrailblazers.com
