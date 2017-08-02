@@ -1,0 +1,133 @@
+policies:
+# policy to unmark
+- name: ec2-tag-compliance-unmark
+  resource: ec2
+  comment: |
+    Any instances which have previously been marked as
+    non compliant with tag policies, that are now compliant
+    should be unmarked as non-compliant.
+  mode:
+    type: periodic
+    schedule: "cron(0 10 ? * MON-FRI *)"
+    role: arn:aws:iam::929415772658:role/CloudCustodian
+  filters:
+    - or:
+      - "tag:longAfterHours": "yes"
+      - "tag:longAfterHours": "no"
+    - "tag:Owner": not-null
+    - "tag:OwnerEmail": not-null
+  actions:
+    - unmark
+    - start
+
+# policy to mark to be stopped
+- name: ec2-tag-compliance-mark
+  resource: ec2
+  comment: |
+    Mark any instances which are non compliant to be stopped.
+  mode:
+    type: periodic
+    schedule: "cron(1 10 ? * MON-FRI *)"
+    role: arn:aws:iam::929415772658:role/CloudCustodian
+  filters:
+  - or:
+    - "tag:longAfterHours": absent
+    - "tag:Owner": absent
+    - "tag:OwnerEmail": absent
+    - and:
+      - "tag:longAfterHours": not-equal "yes"
+      - "tag:longAfterHours": not-equal "no"
+  actions:
+  - type: notify
+    template: default.html
+    priority_header: 2
+    subject: "Tag policy violation."
+    violation_desc: "The following EC2(s) do not have mandatory tags. Mandatory tags are longAfterHours, Owner and OwnerEmail."
+    action_desc: "Action performed: Instance(s) marked to be stopped."
+    to:
+      - ikhan@agiletrailblazers.com
+      - resource-owner
+    transport:
+      type: sqs
+      queue: https://sqs.us-east-1.amazonaws.com/929415772658/Custodian
+      region: us-east-1
+  - type: mark-for-op
+    op: stop
+    days: 1
+
+
+# policy to stop the instance and mark to be terminated
+- name: ec2-tag-compliance-stop
+  resource: ec2
+  comment: |
+    Mark any instances which are being stopped to be terminated next.
+  mode:
+    type: periodic
+    schedule: "cron(2 10 ? * MON-FRI *)"
+    role: arn:aws:iam::929415772658:role/CloudCustodian
+  filters:
+  - or:
+    - "tag:longAfterHours": absent
+    - "tag:Owner": absent
+    - "tag:OwnerEmail": absent
+    - and:
+      - "tag:longAfterHours": not-equal "yes"
+      - "tag:longAfterHours": not-equal "no"
+  - type: marked-for-op
+    op: stop
+  actions:
+  - type: notify
+    template: default.html
+    priority_header: 2
+    subject: "Tag policy violation."
+    violation_desc: "The following EC2(s) do not have mandatory tags. They are being marked for termination. Mandatory tags are longAfterHours, Owner and OwnerEmail."
+    action_desc: "Action performed: Instance(s) are stopped and marked to be terminated."
+    to:
+      - ikhan@agiletrailblazers.com
+      - resource-owner
+    transport:
+      type: sqs
+      queue: https://sqs.us-east-1.amazonaws.com/929415772658/Custodian
+      region: us-east-1
+  - type: mark-for-op
+    op: terminate
+    days: 1
+  - stop
+
+
+
+# policy to terminate the instance
+- name: ec2-tag-compliance-terminate
+  resource: ec2
+  comment: |
+    Terminated instances.
+  mode:
+    type: periodic
+    schedule: "cron(3 10 ? * MON-FRI *)"
+    role: arn:aws:iam::929415772658:role/CloudCustodian
+  filters:
+  - or:
+    - "tag:longAfterHours": absent
+    - "tag:Owner": absent
+    - "tag:OwnerEmail": absent
+    - and:
+      - "tag:longAfterHours": not-equal "yes"
+      - "tag:longAfterHours": not-equal "no"
+  - type: marked-for-op
+    op: terminate
+  actions:
+  - type: notify
+    template: default.html
+    priority_header: 2
+    subject: "Tag policy violation."
+    violation_desc: "The following EC2(s) do not have mandatory tags. They are being terminated. Mandatory tags are longAfterHours, Owner and OwnerEmail."
+    action_desc: "Action performed: Instance(s) are terminated."
+    to:
+      - ikhan@agiletrailblazers.com
+      - resource-owner
+    transport:
+      type: sqs
+      queue: https://sqs.us-east-1.amazonaws.com/929415772658/Custodian
+      region: us-east-1
+  - terminate
+
