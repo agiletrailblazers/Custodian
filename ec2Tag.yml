@@ -16,6 +16,7 @@ policies:
       - "tag:longAfterHours": "no"
     - "tag:Owner": not-null
     - "tag:OwnerEmail": not-null
+    - "tag:maid_status": present
   actions:
     - unmark
     - start
@@ -30,6 +31,7 @@ policies:
     schedule: "cron(1 10 ? * MON-FRI *)"
     role: arn:aws:iam::929415772658:role/CloudCustodian
   filters:
+  - "tag:maid_status": absent  
   - or:
     - "tag:longAfterHours": absent
     - "tag:Owner": absent
