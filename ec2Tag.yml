@@ -20,6 +20,19 @@ policies:
     - "tag:billto": not-null
   actions:
     - unmark
+    - type: notify
+      template: default.html
+      priority_header: 2
+      subject: "Tag policy violation is fixed."
+      violation_desc: "The following EC2(s) now  have mandatory tags."
+      action_desc: "Action performed: Instance(s) are unmarked."
+      to:
+        - ikhan@agiletrailblazers.com
+        - resource-owner
+      transport:
+        type: sqs
+        queue: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
+        region: us-east-1
 
 # policy to mark to be stopped
 - name: ec2-tag-compliance-mark
