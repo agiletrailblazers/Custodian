@@ -9,7 +9,7 @@ policies:
   mode:
     type: periodic
     schedule: "cron(0 10 ? * MON-FRI *)"
-    role: arn:aws:iam::929415772658:role/CloudCustodian
+    role: arn:aws:iam::602062455022:role/CloudCustodian
   filters:
     - or:
       - "tag:longAfterHours": "yes"
@@ -30,7 +30,7 @@ policies:
   mode:
     type: periodic
     schedule: "cron(1 10 ? * MON-FRI *)"
-    role: arn:aws:iam::929415772658:role/CloudCustodian
+    role: arn:aws:iam::602062455022:role/CloudCustodian
   filters:
   - "tag:maid_status": absent  
   - or:
@@ -53,7 +53,7 @@ policies:
       - resource-owner
     transport:
       type: sqs
-      queue: https://sqs.us-east-1.amazonaws.com/929415772658/Custodian
+      queue: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
       region: us-east-1
   - type: mark-for-op
     op: stop
@@ -68,7 +68,7 @@ policies:
   mode:
     type: periodic
     schedule: "cron(2 10 ? * MON-FRI *)"
-    role: arn:aws:iam::929415772658:role/CloudCustodian
+    role: arn:aws:iam::602062455022:role/CloudCustodian
   filters:
   - or:
     - "tag:billto": absent
@@ -92,7 +92,7 @@ policies:
       - resource-owner
     transport:
       type: sqs
-      queue: https://sqs.us-east-1.amazonaws.com/929415772658/Custodian
+      queue: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
       region: us-east-1
   - type: mark-for-op
     op: terminate
@@ -109,7 +109,7 @@ policies:
   mode:
     type: periodic
     schedule: "cron(3 10 ? * MON-FRI *)"
-    role: arn:aws:iam::929415772658:role/CloudCustodian
+    role: arn:aws:iam::602062455022:role/CloudCustodian
   filters:
   - or:
     - "tag:billto": absent
@@ -133,7 +133,7 @@ policies:
       - resource-owner
     transport:
       type: sqs
-      queue: https://sqs.us-east-1.amazonaws.com/929415772658/Custodian
+      queue: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
       region: us-east-1
   - terminate
 
