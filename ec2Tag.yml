@@ -17,6 +17,7 @@ policies:
     - "tag:Owner": not-null
     - "tag:OwnerEmail": not-null
     - "tag:maid_status": present
+    - "tag:billto": not-null
   actions:
     - unmark
     - start
@@ -33,6 +34,7 @@ policies:
   filters:
   - "tag:maid_status": absent  
   - or:
+    - "tag:billto": absent
     - "tag:longAfterHours": absent
     - "tag:Owner": absent
     - "tag:OwnerEmail": absent
@@ -44,7 +46,7 @@ policies:
     template: default.html
     priority_header: 2
     subject: "Tag policy violation."
-    violation_desc: "The following EC2(s) do not have mandatory tags. Mandatory tags are longAfterHours, Owner and OwnerEmail."
+    violation_desc: "The following EC2(s) do not have mandatory tags. Mandatory tags are billto, longAfterHours, Owner and OwnerEmail."
     action_desc: "Action performed: Instance(s) marked to be stopped."
     to:
       - ikhan@agiletrailblazers.com
@@ -69,6 +71,7 @@ policies:
     role: arn:aws:iam::929415772658:role/CloudCustodian
   filters:
   - or:
+    - "tag:billto": absent
     - "tag:longAfterHours": absent
     - "tag:Owner": absent
     - "tag:OwnerEmail": absent
@@ -82,7 +85,7 @@ policies:
     template: default.html
     priority_header: 2
     subject: "Tag policy violation."
-    violation_desc: "The following EC2(s) do not have mandatory tags. They are being marked for termination. Mandatory tags are longAfterHours, Owner and OwnerEmail."
+    violation_desc: "The following EC2(s) do not have mandatory tags. They are being marked for termination. Mandatory tags are billto, longAfterHours, Owner and OwnerEmail."
     action_desc: "Action performed: Instance(s) are stopped and marked to be terminated."
     to:
       - ikhan@agiletrailblazers.com
@@ -109,6 +112,7 @@ policies:
     role: arn:aws:iam::929415772658:role/CloudCustodian
   filters:
   - or:
+    - "tag:billto": absent
     - "tag:longAfterHours": absent
     - "tag:Owner": absent
     - "tag:OwnerEmail": absent
@@ -122,7 +126,7 @@ policies:
     template: default.html
     priority_header: 2
     subject: "Tag policy violation."
-    violation_desc: "The following EC2(s) do not have mandatory tags. They are being terminated. Mandatory tags are longAfterHours, Owner and OwnerEmail."
+    violation_desc: "The following EC2(s) do not have mandatory tags. They are being terminated. Mandatory tags are billto, longAfterHours, Owner and OwnerEmail."
     action_desc: "Action performed: Instance(s) are terminated."
     to:
       - ikhan@agiletrailblazers.com
