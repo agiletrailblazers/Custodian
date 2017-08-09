@@ -27,7 +27,7 @@ policies:
       violation_desc: "The following EC2(s) now  have mandatory tags."
       action_desc: "Action performed: Instance(s) are unmarked."
       to:
-        - cloudcustodian-atb@googlegroups.com
+        - devops@agiletrailblazers.com
         - resource-owner
       transport:
         type: sqs
@@ -67,7 +67,7 @@ policies:
     violation_desc: "The following EC2(s) do not have mandatory tags. Mandatory tags are billto, longAfterHours, Owner and OwnerEmail."
     action_desc: "Action performed: Instance(s) marked to be stopped."
     to:
-      - cloudcustodian-atb@googlegroups.com
+      - devops@agiletrailblazers.com
       - resource-owner
     transport:
       type: sqs
@@ -112,7 +112,7 @@ policies:
 #    violation_desc: "The following EC2(s) do not have mandatory tags. They are being marked for termination. Mandatory tags are billto, longAfterHours, Owner and OwnerEmail."
 #    action_desc: "Action performed: Instance(s) are stopped and marked to be terminated."
 #    to:
-#      - cloudcustodian-atb@googlegroups.com
+#      - devops@agiletrailblazers.com
 #      - resource-owner
 #    transport:
 #      type: sqs
@@ -159,7 +159,7 @@ policies:
 #    violation_desc: "The following EC2(s) do not have mandatory tags. They are being terminated. Mandatory tags are billto, longAfterHours, Owner and OwnerEmail."
 #    action_desc: "Action performed: Instance(s) are terminated."
 #    to:
-#      - cloudcustodian-atb@googlegroups.com
+#      - devops@agiletrailblazers.com
 #      - resource-owner
 #    transport:
 #      type: sqs
