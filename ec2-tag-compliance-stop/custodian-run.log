@@ -1,0 +1,4 @@
+2017-08-03 13:08:16,267 - custodian.policy - INFO - Provisioning policy lambda ec2-tag-compliance-stop
+2017-08-03 13:08:16,382 - custodian.lambda - INFO - Publishing custodian policy lambda function custodian-ec2-tag-compliance-stop
+2017-08-03 13:09:53,550 - custodian.policy - INFO - Provisioning policy lambda ec2-tag-compliance-stop
+2017-08-03 13:09:53,653 - custodian.lambda - INFO - Publishing custodian policy lambda function custodian-ec2-tag-compliance-stop

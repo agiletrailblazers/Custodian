@@ -1,0 +1,26 @@
+policies:
+# policy to mark to be stopped
+- name: ec2-tag-compliance-marktest
+  resource: ec2
+  comment: |
+    Mark any instances which are non compliant to be stopped.
+  mode:
+    type: periodic
+    schedule: "cron(8 * ? * MON-FRI *)"
+    role: arn:aws:iam::602062455022:role/ec2-fullaccess
+  filters:
+    - "tag:maid_status": absent
+    - or:
+      - "tag:billto": absent
+      - "tag:longAfterHours": absent
+      - "tag:Owner": absent
+      - "tag:OwnerEmail": absent
+      - and:
+        - type: value
+          key: "tag:longAfterHours"
+          op: ne
+          value: "yes"
+        - type: value
+          key: "tag:longAfterHours"
+          op: ne
+          value: "no"

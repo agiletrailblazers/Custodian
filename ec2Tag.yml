@@ -51,8 +51,14 @@ policies:
     - "tag:Owner": absent
     - "tag:OwnerEmail": absent
     - and:
-      - "tag:longAfterHours": not-equal "yes"
-      - "tag:longAfterHours": not-equal "no"
+       - type: value
+         key: "tag:longAfterHours"
+         op: ne
+         value: "yes"
+       - type: value
+         key: "tag:longAfterHours"
+         op: ne
+         value: "no"
   actions:
   - type: notify
     template: default.html
@@ -88,8 +94,14 @@ policies:
 #    - "tag:Owner": absent
 #    - "tag:OwnerEmail": absent
 #    - and:
-#      - "tag:longAfterHours": not-equal "yes"
-#      - "tag:longAfterHours": not-equal "no"
+#      - type: value
+#        key: "tag:longAfterHours"
+#        op: ne
+#        value: "yes"
+#      - type: value
+#        key: "tag:longAfterHours"
+#        op: ne
+#        value: "no"
 #  - type: marked-for-op
 #    op: stop
 #  actions:
@@ -129,8 +141,14 @@ policies:
 #    - "tag:Owner": absent
 #    - "tag:OwnerEmail": absent
 #    - and:
-#      - "tag:longAfterHours": not-equal "yes"
-#      - "tag:longAfterHours": not-equal "no"
+#      - type: value
+#        key: "tag:longAfterHours"
+#        op: ne
+#        value: "yes"
+#      - type: value
+#        key: "tag:longAfterHours"
+#        op: ne
+#        value: "no"
 #  - type: marked-for-op
 #    op: terminate
 #  actions:

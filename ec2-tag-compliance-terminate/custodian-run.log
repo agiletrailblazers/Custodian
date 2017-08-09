@@ -1,0 +1,2 @@
+2017-08-08 17:46:29,385 - custodian.policy - INFO - Provisioning policy lambda ec2-tag-compliance-terminate
+2017-08-08 17:46:29,478 - custodian.lambda - INFO - Publishing custodian policy lambda function custodian-ec2-tag-compliance-terminate
