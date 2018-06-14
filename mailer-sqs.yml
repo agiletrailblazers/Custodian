@@ -1,6 +1,6 @@
 queue_url: https://sqs.us-east-1.amazonaws.com/602062455022/Custodian
 role: arn:aws:iam::602062455022:role/ec2-fullaccess
-from_address: ikhan@agiletrailblazers.com
+from_address: devops@agiletrailblazers.com
 # Tags that we should look at for address information when resource-owner is specified in policy yaml
 contact_tags:
   - OwnerEmail
