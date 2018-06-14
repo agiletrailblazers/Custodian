@@ -13,7 +13,9 @@ policies:
   filters:
     - or:
       - "tag:longAfterHours": "yes"
+      - "tag:longAfterHours": "Yes"
       - "tag:longAfterHours": "no"
+      - "tag:longAfterHours": "No"
     - "tag:Owner": not-null
     - "tag:OwnerEmail": not-null
     - "tag:maid_status": present
@@ -58,7 +60,15 @@ policies:
        - type: value
          key: "tag:longAfterHours"
          op: ne
+         value: "Yes"
+       - type: value
+         key: "tag:longAfterHours"
+         op: ne
          value: "no"
+       - type: value
+         key: "tag:longAfterHours"
+         op: ne
+         value: "No"
   actions:
   - type: notify
     template: default.html

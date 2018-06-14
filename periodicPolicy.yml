@@ -11,7 +11,9 @@ policies:
           default_tz: est
           offhour: 18
           tag: longAfterHours
-        - "tag:longAfterHours": "yes"
+        - or:
+          - "tag:longAfterHours": "yes"
+          - "tag:longAfterHours": "Yes"
     actions:
       - stop
 
@@ -27,6 +29,8 @@ policies:
           default_tz: est
           onhour: 7
           tag: longAfterHours
-        - "tag:longAfterHours": "yes"
+        - or: 
+           - "tag:longAfterHours": "yes"
+           - "tag:longAfterHours": "Yes"
     actions:
       - start
